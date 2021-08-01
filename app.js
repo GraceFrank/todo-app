@@ -63,8 +63,12 @@ function editTodoItem() {
 }
 
 //Copy  Todo Item
-function copyTodoItem() {
-  alert("copy");
+function copyTodoItem(e) {
+  const copyButton = e.target;
+  const todoDiv = copyButton.previousSibling;
+  const todoTitle = todoDiv.children[0].textContent;
+  const cb = navigator.clipboard;
+  cb.writeText(todoTitle);
 }
 
 function getFormattedDate() {

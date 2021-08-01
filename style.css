@@ -11,8 +11,9 @@ button {
 .todo-item {
   flex: 1;
 }
-i {
+#todo-list i {
   margin: 0 10px;
+  pointer-events: none;
 }
 .bi-pencil-fill {
   color: navy;
