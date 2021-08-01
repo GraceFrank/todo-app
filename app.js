@@ -1,10 +1,15 @@
 //Selectors
 const addTodoForm = document.getElementById("add-todo-form");
-const addTodoInput = document.getElementById("add-todo-input");
+const addTodoInput = addTodoForm.children[0].children[0];
+const editTodoForm = document.getElementById("edit-todo-form");
+const editTodoInput = editTodoForm.children[0].children[0];
 const todoList = document.getElementById("todo-list");
+
+let itemToEdit;
 
 //Event Listeners
 addTodoForm.addEventListener("submit", addTodoItem);
+editTodoForm.addEventListener("submit", editTodoItem);
 
 //Add Todo Item
 function addTodoItem(e) {
@@ -37,7 +42,7 @@ function addTodoItem(e) {
   //Append Edit Button
   const editButton = document.createElement("button");
   editButton.innerHTML = `<i class="bi bi-pencil-fill"></i>`;
-  editButton.addEventListener("click", editTodoItem);
+  editButton.addEventListener("click", showEditButton);
   todoItem.appendChild(editButton);
 
   //Append Delete Button
@@ -62,8 +67,25 @@ function removeTodoItem(e) {
 }
 
 //Edit  Todo Item
-function editTodoItem() {
-  alert("edit");
+function editTodoItem(e) {
+  e.preventDefault();
+  const newTodoTitle = editTodoInput.value;
+  itemToEdit.textContent = newTodoTitle;
+  hideElement(editTodoForm);
+  addTodoInput.value = "";
+
+  showElement(addTodoForm);
+  itemToEdit = null;
+}
+
+function showEditButton(e) {
+  const editButton = e.target;
+  const todoDiv = editButton.previousSibling.previousSibling;
+  const todoTitle = todoDiv.children[0];
+  hideElement(addTodoForm);
+  showElement(editTodoForm);
+  itemToEdit = todoTitle;
+  editTodoInput.value = todoTitle.textContent;
 }
 
 //Copy  Todo Item
@@ -75,6 +97,17 @@ function copyTodoItem(e) {
   cb.writeText(todoTitle);
 }
 
+//show Element
+function showElement(element) {
+  element.style.display = "block";
+}
+
+//hide Element
+function hideElement(element) {
+  element.style.display = "none";
+}
+
+// Date Formatter
 function getFormattedDate() {
   const formattingOptions = {
     weekday: "long",

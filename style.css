@@ -21,3 +21,6 @@ button {
 .bi-x-square-fill {
   color: red;
 }
+#edit-todo-form {
+  display: none;
+}
