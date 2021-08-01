@@ -39,23 +39,27 @@
       </header>
       <main>
         <!-- Add Todo -->
-        <form>
+        <form id="add-todo-form">
           <div class="input-group mb-3">
             <input
+              id="add-todo-input"
               type="text"
+              required
               class="form-control"
               placeholder="Todo Title"
-              aria-label="Recipient's username"
+              aria-label="Todo Title"
               aria-describedby="basic-addon2"
             />
             <span class="input-group-text" id="basic-addon2"
-              ><button type="submit">Add Todo</button></span
+              ><button id="add-todo-button" type="submit">
+                Add Todo
+              </button></span
             >
           </div>
         </form>
 
         <!-- Todo Items -->
-        <ul class="list-group mx-5">
+        <ul id="todo-list" class="list-group mx-5">
           <li class="list-group-item d-flex justify-content-between">
             <div class="todo-item">
               <strong>Walk Dog</strong><br />
