@@ -1,0 +1,22 @@
+header {
+  margin: 15px 0px;
+}
+button {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  overflow: hidden;
+  outline: none;
+}
+.todo-item {
+  flex: 1;
+}
+i {
+  margin: 0 10px;
+}
+.bi-pencil-fill {
+  color: navy;
+}
+.bi-x-square-fill {
+  color: red;
+}
