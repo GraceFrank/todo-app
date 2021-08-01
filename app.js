@@ -53,8 +53,12 @@ function addTodoItem(e) {
 }
 
 //Remove  Todo Item
-function removeTodoItem() {
-  alert("remove");
+function removeTodoItem(e) {
+  const removeButton = e.target;
+  if (confirm("Are you Sure you want to Delete Todo Item?")) {
+    const todoItem = removeButton.parentElement;
+    todoItem.remove();
+  }
 }
 
 //Edit  Todo Item
