@@ -47,13 +47,17 @@ function removeTodoItem(e) {
 //Edit  Todo Item
 function editTodoItem(e) {
   e.preventDefault();
-  const newTodoTitle = editTodoInput.value;
-  itemToEdit.textContent = newTodoTitle;
+  const oldTitle = itemToEdit.innerText;
+  const createdAt = itemToEdit.parentElement.children[2].innerText;
+  const newTitle = editTodoInput.value;
+  itemToEdit.textContent = newTitle;
   hideElement(editTodoForm);
   editTodoInput.value = "";
 
   showElement(addTodoForm);
   itemToEdit = null;
+  console.log(createdAt);
+  editTodInStore(oldTitle, createdAt, newTitle);
 }
 
 function showEditButton(e) {
@@ -175,6 +179,25 @@ function removeTodoFromStore(title, createdAt) {
     (item) => item.title === title && item.createdAt === createdAt
   );
   todoItems.splice(todoIndex, 1);
+  localStorage.setItem("todoItems", JSON.stringify(todoItems));
+}
+
+function editTodInStore(title, createdAt, newTitle) {
+  let todoItems;
+
+  //check if someItems are already in local storage
+  const existingTodoItems = localStorage.getItem("todoItems");
+  if (!existingTodoItems) {
+    todoItems = [];
+  } else {
+    todoItems = JSON.parse(existingTodoItems);
+  }
+
+  //get index of item
+  const todoIndex = todoItems.findIndex(
+    (item) => item.title === title && item.createdAt === createdAt
+  );
+  todoItems[todoIndex].title = newTitle;
   localStorage.setItem("todoItems", JSON.stringify(todoItems));
 }
 
