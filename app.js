@@ -4,12 +4,14 @@ const addTodoInput = addTodoForm.children[0].children[0];
 const editTodoForm = document.getElementById("edit-todo-form");
 const editTodoInput = editTodoForm.children[0].children[0];
 const todoList = document.getElementById("todo-list");
+const searchInput = document.getElementById("search-input");
 
 let itemToEdit;
 
 //Event Listeners
 addTodoForm.addEventListener("submit", addTodoItem);
 editTodoForm.addEventListener("submit", editTodoItem);
+searchInput.addEventListener("input", search);
 
 //Add Todo Item
 function addTodoItem(e) {
@@ -24,11 +26,7 @@ function addTodoItem(e) {
 
   //add it to the list of todo items
   const todoItem = document.createElement("li");
-  todoItem.classList.add(
-    "list-group-item",
-    "d-flex",
-    "justify-content-between"
-  );
+  todoItem.classList.add("list-group-item");
   todoItem.innerHTML = `<div class="todo-item">
               <strong>${todoTitle}</strong><br />
               <span>${creationDate}</span>
@@ -96,6 +94,24 @@ function copyTodoItem(e) {
   const todoTitle = todoDiv.children[0].textContent;
   const cb = navigator.clipboard;
   cb.writeText(todoTitle);
+}
+
+//Search
+function search(e) {
+  const searchString = e.target.value;
+  const todoItems = todoList.childNodes;
+
+  todoItems.forEach(function (todoItem) {
+    const todoTitle = todoItem.children[0].children[0].textContent;
+
+    if (todoTitle.includes(searchString)) {
+      todoItem.style.display = "flex";
+    } else {
+      console.log(false, todoItem);
+
+      hideElement(todoItem);
+    }
+  });
 }
 
 //show Element
