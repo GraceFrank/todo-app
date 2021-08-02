@@ -27,6 +27,10 @@ function addTodoItem(e) {
 
   //add it to the list of todo items
   renderTodoItem(todoTitle, creationDate);
+  persistTodoItem(todoTitle, creationDate);
+
+  //clear input
+  addTodoInput.value = "";
 }
 
 //Remove  Todo Item
@@ -35,6 +39,8 @@ function removeTodoItem(e) {
   if (confirm("Are you Sure you want to Delete Todo Item?")) {
     const todoItem = removeButton.parentElement;
     todoItem.remove();
+    const [title, linebreak, createdAt] = [...todoItem.children[0].children];
+    removeTodoFromStore(title.innerText, createdAt.innerText);
   }
 }
 
@@ -80,8 +86,6 @@ function search(e) {
     if (todoTitle.includes(searchString)) {
       todoItem.style.display = "flex";
     } else {
-      console.log(false, todoItem);
-
       hideElement(todoItem);
     }
   });
@@ -136,9 +140,54 @@ function renderTodoItem(todoTitle, creationDate) {
   deleteButton.addEventListener("click", removeTodoItem);
   todoItem.appendChild(deleteButton);
 
-  //
+  //Append Li to Ul
   todoList.appendChild(todoItem);
+}
 
-  //clear input
-  addTodoInput.value = "";
+//Save TodoItems in Local Storage
+function persistTodoItem(title, createdAt) {
+  let todoItems;
+
+  //check if someItems are already in local storage
+  const existingTodoItems = localStorage.getItem("todoItems");
+  if (!existingTodoItems) {
+    todoItems = [];
+  } else {
+    todoItems = JSON.parse(existingTodoItems);
+  }
+  todoItems.push({ title, createdAt });
+  localStorage.setItem("todoItems", JSON.stringify(todoItems));
+}
+
+function removeTodoFromStore(title, createdAt) {
+  let todoItems;
+
+  //check if someItems are already in local storage
+  const existingTodoItems = localStorage.getItem("todoItems");
+  if (!existingTodoItems) {
+    todoItems = [];
+  } else {
+    todoItems = JSON.parse(existingTodoItems);
+  }
+
+  //get index of item
+  const todoIndex = todoItems.findIndex(
+    (item) => item.title === title && item.createdAt === createdAt
+  );
+  todoItems.splice(todoIndex, 1);
+  localStorage.setItem("todoItems", JSON.stringify(todoItems));
+}
+
+function loadTodoItems() {
+  let todoItems;
+  const storedTodos = localStorage.getItem("todoItems");
+  if (!storedTodos) {
+    todoItems = [];
+  } else {
+    todoItems = JSON.parse(storedTodos);
+  }
+  todoItems.forEach(function (todo) {
+    //Create todo div
+    renderTodoItem(todo.title, todo.createdAt);
+  });
 }
