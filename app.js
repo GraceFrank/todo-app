@@ -9,6 +9,7 @@ const searchInput = document.getElementById("search-input");
 let itemToEdit;
 
 //Event Listeners
+document.addEventListener("DOMContentLoaded", loadTodoItems);
 addTodoForm.addEventListener("submit", addTodoItem);
 editTodoForm.addEventListener("submit", editTodoItem);
 searchInput.addEventListener("input", search);
@@ -25,35 +26,7 @@ function addTodoItem(e) {
   const creationDate = getFormattedDate();
 
   //add it to the list of todo items
-  const todoItem = document.createElement("li");
-  todoItem.classList.add("list-group-item");
-  todoItem.innerHTML = `<div class="todo-item">
-              <strong>${todoTitle}</strong><br />
-              <span>${creationDate}</span>
-            </div>`;
-  //Append copy Button
-  const copyButton = document.createElement("button");
-  copyButton.innerHTML = `<i class="bi bi-clipboard"></i>`;
-  copyButton.addEventListener("click", copyTodoItem);
-  todoItem.appendChild(copyButton);
-
-  //Append Edit Button
-  const editButton = document.createElement("button");
-  editButton.innerHTML = `<i class="bi bi-pencil-fill"></i>`;
-  editButton.addEventListener("click", showEditButton);
-  todoItem.appendChild(editButton);
-
-  //Append Delete Button
-  const deleteButton = document.createElement("button");
-  deleteButton.innerHTML = `<i class="bi bi-x-square-fill"></i>`;
-  deleteButton.addEventListener("click", removeTodoItem);
-  todoItem.appendChild(deleteButton);
-
-  //
-  todoList.appendChild(todoItem);
-
-  //clear input
-  addTodoInput.value = "";
+  renderTodoItem(todoTitle, creationDate);
 }
 
 //Remove  Todo Item
@@ -136,4 +109,36 @@ function getFormattedDate() {
     hour12: false,
   };
   return new Date().toLocaleTimeString("en-us", formattingOptions);
+}
+
+function renderTodoItem(todoTitle, creationDate) {
+  const todoItem = document.createElement("li");
+  todoItem.classList.add("list-group-item");
+  todoItem.innerHTML = `<div class="todo-item">
+              <strong>${todoTitle}</strong><br />
+              <span>${creationDate}</span>
+            </div>`;
+  //Append copy Button
+  const copyButton = document.createElement("button");
+  copyButton.innerHTML = `<i class="bi bi-clipboard"></i>`;
+  copyButton.addEventListener("click", copyTodoItem);
+  todoItem.appendChild(copyButton);
+
+  //Append Edit Button
+  const editButton = document.createElement("button");
+  editButton.innerHTML = `<i class="bi bi-pencil-fill"></i>`;
+  editButton.addEventListener("click", showEditButton);
+  todoItem.appendChild(editButton);
+
+  //Append Delete Button
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = `<i class="bi bi-x-square-fill"></i>`;
+  deleteButton.addEventListener("click", removeTodoItem);
+  todoItem.appendChild(deleteButton);
+
+  //
+  todoList.appendChild(todoItem);
+
+  //clear input
+  addTodoInput.value = "";
 }

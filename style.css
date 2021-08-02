@@ -35,6 +35,6 @@ form {
   box-shadow: 0px 5px 17px -3px rgba(2, 67, 100, 0.42);
 }
 
-main li {
+li {
   display: flex;
 }
