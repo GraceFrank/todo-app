@@ -55,6 +55,7 @@ function addTodoItem(e) {
   todoList.appendChild(todoItem);
 
   //clear input
+  addTodoInput.value = "";
 }
 
 //Remove  Todo Item
@@ -72,7 +73,7 @@ function editTodoItem(e) {
   const newTodoTitle = editTodoInput.value;
   itemToEdit.textContent = newTodoTitle;
   hideElement(editTodoForm);
-  addTodoInput.value = "";
+  editTodoInput.value = "";
 
   showElement(addTodoForm);
   itemToEdit = null;

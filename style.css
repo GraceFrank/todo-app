@@ -1,6 +1,12 @@
 header {
-  margin: 15px 0px;
+  padding: 15px 0px;
+  background: #024364;
+  color: white;
 }
+main .container {
+  padding-top: 25px;
+}
+
 button {
   background-color: Transparent;
   background-repeat: no-repeat;
@@ -23,4 +29,8 @@ button {
 }
 #edit-todo-form {
   display: none;
+}
+main ul,
+form {
+  box-shadow: 0px 5px 17px -3px rgba(2, 67, 100, 0.42);
 }

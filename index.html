@@ -15,9 +15,9 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="container">
-      <!-- Header -->
-      <header>
+    <!-- Header -->
+    <header>
+      <div class="container">
         <div class="d-flex justify-content-between">
           <h1>Todo App</h1>
           <!-- Search -->
@@ -36,8 +36,11 @@
             </div>
           </form>
         </div>
-      </header>
-      <main>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
         <!-- Add Todo -->
         <form id="add-todo-form">
           <div class="input-group mb-3">
@@ -75,8 +78,8 @@
 
         <!-- Todo Items -->
         <ul id="todo-list" class="list-group mx-5"></ul>
-      </main>
-    </div>
+      </div>
+    </main>
 
     <script src="app.js"></script>
   </body>
